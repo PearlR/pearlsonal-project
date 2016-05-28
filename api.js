@@ -2,41 +2,43 @@ var request = require('superagent')
 
 require('dotenv').config()
 
-// function search (object, callback){
-//   request
-//   .get('https://developers.zomato.com/api/v2.1/search')
-//   .set('Accept', 'application/json')
-//   .set('user-key', process.env.X_API_KEY)
-//   .query(object)
-//   .end(function(err, res){
-//     if (err) {
-//       throw err
-//       } else {
-//         callback(res.body.categories)
-//       }
-//     })
-// }
+// API FUNCTIONS ---------------------------------
 
-function cities (callback){
+// Uses the city that the user puts into a field and brings back an object with a city ID
+function cities (city, callback){
 request
-.get('https://developers.zomato.com/api/v2.1/cities?q=wellington')
+.get('https://developers.zomato.com/api/v2.1/cities?q=' + city)
 .set('Accept', 'application/json')
 .set('user-key', process.env.X_API_KEY)
-// .query({cities: 'wellington'})
 .end(function(err, res){
   if (err) {
-    throw err
+    // callback(err)
+    console.log(err)
     } else {
-      console.log(res.body)
+      // callback(err, res.body)
+      cityInfo = res.body
+      // console.log(res.body)
     }
   })
 }
 
-cities(function(res){
-  console.log(res)
-})
+// Brings back an object using the city ID returned from the
+function searchForRestaurants (id) {
+  request
+  .get('https://developers.zomato.com/api/v2.1/categories')
+  .set('Accept', 'application/json')
+  .set('user-key', process.env.X_API_KEY)
+  .query(cityInfo)
+  .end(function(err, res){
+    if (err) {
+      throw err
+      } else {
+        callback(res.body.)
+      }
+    })
+}
 
-
+// Brings back an object based on category that has been specified
 function categories (callback){
   request
   .get('https://developers.zomato.com/api/v2.1/categories')
@@ -51,6 +53,8 @@ function categories (callback){
     })
 }
 
-categories(function(res){
-  console.log(res)
-})
+module.exports = {
+  cities: cities,
+  searchForRestaurants: searchForRestaurants,
+  categories: categories
+}
