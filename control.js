@@ -38,7 +38,7 @@ function searchForRestaurants (id) {
           for(var i = 0; i < res.body.restaurants.length; i++){
             objs.push(res.body.restaurants[i])
           }
-          console.log('Got here!!!', objs)
+          console.log('Got here!!!')
           resolve(objs)
         }
     })
@@ -46,11 +46,11 @@ function searchForRestaurants (id) {
 }
 
 // filter for cheapest places
-
-function filterByCheapest (restaurantsObj) {
+// THIS THING RIGHT HERE - START HERE
+function filterByCheapest (restaurantsArray) {
   return new Promise (function (resolve, reject) {
-    console.log(restaurantsObj.restaurant.average_cost_for_two <= 40)
-    resolve(restaurantsObj.restaurant.average_cost_for_two <= 40)
+    console.log('THIS THING HEREEEE!', restaurantsArray[0].restaurant.average_cost_for_two)
+    resolve(restaurantsArray.restaurant.average_cost_for_two)
   })
 }
 
