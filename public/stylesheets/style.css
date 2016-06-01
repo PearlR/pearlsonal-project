@@ -1,9 +1,66 @@
+
+html { 
+  background: url(images/bg.jpg) no-repeat center center fixed; 
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+
+img.bg {
+  /* Set rules to fill background */
+  min-height: 100%;
+  min-width: 1024px;
+	
+  /* Set up proportionate scaling */
+  width: 100%;
+  height: auto;
+	
+  /* Set up positioning */
+  position: fixed;
+  top: 0;
+  left: 0;
+}
+
+@media screen and (max-width: 1024px) { /* Specific to this particular image */
+  img.bg {
+    left: 50%;
+    margin-left: -512px;   /* 50% */
+  }
+}
+
 body {
   padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
-  color: darkred;
+  color: black;
+  font-family: 'Oxygen', sans-serif;
 }
 
 a {
-  color: #00B7FF;
+  color: darkred;
+  text-decoration: none;
 }
+
+h1{
+	font-family: 'Roboto', sans-serif;
+	color: darkred;
+	font-weight: 700;
+}
+
+.index_header {
+
+}
+
+#button {
+	background-color: red;
+	color: white;
+}
+
+div.indiv_rest {
+	padding: 30px 0px;
+}
+
+.featured_img {
+	padding-bottom: 5%;
+}
+
+

@@ -1,18 +1,13 @@
-<h1>{{title}}</h1>
-<p>Welcome to {{title}}</p>
-
-<p>{{Test}}</p>
-
-  <div class="text-center grid-container align-center">
+<h1>Nearby Cheap Eats</h1>
     <div class="grid-block home-img-bg">
       {{#each restaurants}}
-      <div class="grid-container v-align">
-        <img href="{{featured_image}}"></img>
+      <div class="indiv_rest">
+        <a href="restaurants/{{id}}"><img class="featured_img" src="{{featured_image}}" width="100%"></img>
         <h1>{{name}}</h1>
-        <p>$ {{average_cost_for_two}}.00-ish per person incl. drinks</p>
-        <p>{{user_rating.aggregate_rating}} out of 5. </p>
-        <p>{{user_rating.rating_text}} based on {{user_rating.votes}} votes</p>
-        <p>{{cuisines}}</p>
+        <p>${{average_cost_for_two}}.00-ish per person incl. drinks</p>
+        <p>{{user_rating.aggregate_rating}} out of 5.0</p>
+        <p>{{user_rating.rating_text}} based on {{user_rating.votes}} Votes</p>
+        <p>{{cuisines}}</p></a>
       </div>
       {{/each}}
     <div class="grid-block"></div>

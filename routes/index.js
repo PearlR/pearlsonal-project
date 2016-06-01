@@ -11,11 +11,14 @@ var currentRestaurants = {
 // GET home page
 router.get('/', function(req, res, next) {
   res.render('index', currentRestaurants);
-  console.log('HIIIIIII I\'M THE INDEX.JS!')
 })
 
 router.get('/restaurants', function (req, res, next){
   res.render('restaurants', currentRestaurants)
+})
+
+router.get('/restaurants/:id', function (req, res, next){
+  res.render('/:id')
 })
 
 // POST from location field
@@ -36,7 +39,7 @@ router.post('/', function (req, res, next){
         })
       currentRestaurants.restaurants = cheapRestaurants
       // ???? REDIRECTS IN A POST ROUTE ??????
-      res.redirect('/restaurants')
+      req.redirect('/restaurants')
     })
     .catch(console.log)
 })
