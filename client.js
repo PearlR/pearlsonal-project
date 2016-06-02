@@ -3,14 +3,18 @@ var request = require('superagent')
 console.log('clientside JS for the win!')
 
 document.getElementById("button").addEventListener("click", function(){
-    navigator.geolocation.getCurrentPosition(function (position) {
-      var lat = position.coords.latitude
-      var lon = position.coords.longitude
-      request.post('/')
-        .send({lat, lon})
-        .end(function () {
-          console.log('AAAHHHHHHHHHHH')
-      })
+  navigator.geolocation.getCurrentPosition(function (position) {
+    var lat = position.coords.latitude
+    var lon = position.coords.longitude
+    console.log(lat, lon)
+
+    document.location = `/restaurants?lat=${lat}&lon=${lon}`
+    // request.post('/')
+    //   .send({lat, lon})
+    //   .end(function (err, data) {
+    //     if (err) { console.err("there was an error!", err) }
+    //     else { console.log('yay, I got a response:', data) }
+    //   })
   })
 })
 

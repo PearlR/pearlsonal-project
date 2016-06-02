@@ -33,7 +33,6 @@ function getGeoRestaurants (lat, lon) {
         if (err) {
           reject(err)
         } else {
-          console.log('TUESDAY')
           resolve(res.body)
         }
       })

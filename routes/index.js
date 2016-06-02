@@ -3,6 +3,7 @@ var router = express.Router()
 var control = require('../control')
 // var filter = require('lodash.filter')
 
+// this is temporary - remove once database in?
 var currentRestaurants = {
   title: 'Cheap Eat\'s',
   restaurants: []
@@ -14,34 +15,48 @@ router.get('/', function(req, res, next) {
 })
 
 router.get('/restaurants', function (req, res, next){
-  res.render('restaurants', currentRestaurants)
+  console.log(req.params)
+  console.log(req.query)
+  control.getGeoRestaurants(req.query.lat, req.query.lon)
+  .then(function (restaurants){
+    var cheapRestaurants = filterCheapRestaurants(restaurants.nearby_restaurants)
+    // currentRestaurants.restaurants = cheapRestaurants
+    // update the record of current restaurants we know about
+    var currentRestaurants = {
+      title: 'Cheap Eat\'s',
+      restaurants: cheapRestaurants
+    }
+    res.render('restaurants', currentRestaurants)
+  })
 })
 
 router.get('/restaurants/:id', function (req, res, next){
   res.render('/:id')
 })
 
-// POST from location field
-router.post('/', function (req, res, next){
-  console.log(req.body.lat, req.body.lon)
-  control.getGeoRestaurants(req.body.lat, req.body.lon)
-    // .then(control.searchForRestaurants())
-    .then(function (restaurants){
-      console.log('RESTAURANTS', restaurants)
-      // console.log('RESTAURANTS 1ST', restaurants.nearby_restaurants['1'].restaurant)
-      var cheapRestaurants = Object.keys(restaurants.nearby_restaurants)
-        .map(function (key) {
-          return restaurants.nearby_restaurants[key].restaurant
-        })
-        .filter(function (restaurant) {
-          return restaurant.average_cost_for_two <= 50
-            || restaurant.price_range < 3
-        })
-      currentRestaurants.restaurants = cheapRestaurants
-      // ???? REDIRECTS IN A POST ROUTE ??????
-      req.redirect('/restaurants')
-    })
-    .catch(console.log)
-})
+
+function filterCheapRestaurants(restaurants) {
+  return Object.keys(restaurants)
+          .map(function (key) {
+            return restaurants[key].restaurant
+          })
+          .filter(function (restaurant) {
+            return restaurant.average_cost_for_two <= 50
+              || restaurant.price_range < 3
+          })
+}
+
+// // POST from location field
+// router.post('/', function (req, res, next){
+//   control.getGeoRestaurants(req.body.lat, req.body.lon)
+//     .then(function (restaurants){
+//       var cheapRestaurants = filterCheapRestaurants(restaurants.nearby_restaurants)
+//       // currentRestaurants.restaurants = cheapRestaurants
+//       // update the record of current restaurants we know about 
+
+//       res.json({restaurants: cheapRestaurants})
+//     })
+//     .catch(console.log)
+// })
 
 module.exports = router;
