@@ -1,4 +1,4 @@
-var api = require('../api')
+var latlon = require('../control')
 
 // GOOGLE MAP FUNCTIONS -------------------------------------------------
 
